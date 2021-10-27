@@ -86,13 +86,32 @@ Or import it in a `<script>` as a module.
 </script>
 ```
 
-## API
+## How to use it
 
 You can create as many patches as you need. The first parameter is where you want to make the change, and the second specifies what you wish to change.
 
 ```javascript
 // p(where, what)
 p(document.getElementById('app'), count());
+```
+
+A key or name attribute is required to keep the focus of an active element when its content change.
+
+Using the T library:
+```javascript
+t`<input name="input" value="${variable}" />`
+```
+
+Or
+
+```javascript
+t`<button key="count">Count - ${variable}</button>`
+```
+
+Using plain JS:
+
+```javascript
+buttonElement.__key__ = 'count';
 ```
 
 ## Acknowledgments
