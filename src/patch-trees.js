@@ -1,5 +1,3 @@
-import { handler } from './handler.js';
-
 // https://github.com/WebReflection/udomdiff/blob/master/esm/index.js
 export function patchTrees(n, p, pAncestry, nAncestry) {
     const activeElement = document.activeElement;
@@ -89,14 +87,6 @@ export function patchTrees(n, p, pAncestry, nAncestry) {
                         const name = nnAttributes[i].name;
                         const value = nnAttributes[i].value;
                         pp.setAttribute(name, value);
-                    }
-                    if (!pp.__handler__ && nn.__handler__) {
-                        const eventTypes = Object.keys(nn.__handler__ || {});
-                        const length = eventTypes.length;
-                        for (let i = 0; i < length; i++) {
-                            nn.removeEventListener(eventTypes[i], handler);
-                            pp.addEventListener(eventTypes[i], handler);
-                        }
                     }
                     if (
                         pp === activeElement &&

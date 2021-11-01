@@ -6,11 +6,8 @@ export function patch(a, b) {
         a.parentNode.removeChild(a);
         return b;
     }
-
     const parentNode = a.parentNode;
-
     let activeElement = document.activeElement;
-
     if (activeElement && activeElement.tagName !== 'BODY' && a.contains(activeElement)) {
         const { p, n, pAncestry, nActiveElement, nAncestry } = doubleTree(a, b, activeElement);
         if (!nActiveElement) {

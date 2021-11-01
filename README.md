@@ -1,10 +1,10 @@
 # P
 
-P is a micro-library (<1.2 KB) to patch DOM Trees. Instead of using a Virtual DOM, it uses dom-diff to update the DOM if there is a child active element. Otherwise, it will take one tree by the other.
+P is a micro-library (1 KB) to patch DOM Trees. Instead of using a Virtual DOM, it uses dom-diff to update the DOM if there is a child active element. Otherwise, it will take one tree by the other.
 
 ## Key Features
 
-- Micro-library <1.2 KB
+- Micro-library 1 KB
 - Without dependencies
 - No compilation needed
 - No Virtual DOM, uses dom-diff to update the DOM

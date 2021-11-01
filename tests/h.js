@@ -1,8 +1,8 @@
-import { handler } from '../src/handler.js';
-
 // @see: https://github.com/preactjs/preact/blob/87202bd7dbcb5b94506f9388516a9c4bd289129a/compat/src/render.js#L149
 const CAMEL_PROPS =
     /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|fill|flood|font|glyph(?!R)|horiz|marker(?!H|W|U)|overline|paint|stop|strikethrough|stroke|text(?!L)|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/;
+
+const events = {};
 
 export function h(type, props = {}, children = []) {
     const element =
@@ -26,7 +26,8 @@ export function h(type, props = {}, children = []) {
             const eventType = key.toLowerCase().substring(2);
             element.__handler__ = element.__handler__ || {};
             element.__handler__[eventType] = props[key];
-            element.addEventListener(eventType, handler);
+            !events[eventType] && document.addEventListener(eventType, handler);
+            events[eventType] = 1;
         }
         if (key && !/^key$/.test(key) && !/^on/.test(key) && !/^ref$/.test(key)) {
             const classProp = key === 'className' ? 'class' : '';
@@ -43,3 +44,17 @@ export function h(type, props = {}, children = []) {
     }
     return element;
 }
+
+const handler = (ev) => {
+    let el = ev.target;
+    const type = ev.type;
+    while (el !== null) {
+        const handler = el.__handler__ && el.__handler__[type];
+        if (handler) {
+            handler(ev);
+            return;
+        }
+
+        el = el.parentNode;
+    }
+};
